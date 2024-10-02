@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="allergen-information-detection">
+  <meta name="keywords" content="HTML, CSS, JavaScript">
+  <meta name="author" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>NutriSafe</title>
+</head>
+<body>
+  <div class="header">
+    <a href="#default" class="logo"><img src="logo.png" alt="NutriSafe Logo" width="70" height="60"></a>
+    <div class="header-right">
+      <a class="active" href="#home">Home</a>
+      <a href="about.html">About</a>
+      <a href="GotoProfile.html">Profile</a>
+    </div>
+  </div>
+
+  <div class="info">
+    <p>Find if a product is the right choice for you!</p>
+    <div class="description">
+      <p>Use our Ingredient Safety Checker to find out if the food item you want to purchase is allergy friendly</p>
+      <p>Just upload a photo of the ingredient label and find out if it's safe to consume!</p>
+    </div>
+  </div>
+
+  <div class="image-upload">
+    <div class="file-upload-background">
+      <label class="file-upload">
+        <input type="file" name="myfile" id="file-upload">Choose Image<br><br>
+      </label>
+      <label id="file-name"></label>
+    </div>
+    <div class="container">
+      <button id="submit">Upload</button>
+    </div>
+  </div>
+
+  <div id="loader"></div>
+
+  <div id="hidden-response">
+    <div class="ingredient">
+      <p id="desp">The list of ingredients are - </p>
+      <p id="response1"></p>
+      <p id="desp">Is this item safe for consumption?</p>
+      <p id="response2"></p>
+      <p id="desp">How should you store this item?</p>
+      <p id="response3"></p>
+      <p id="desp">Try these alternatives!</p>
+      <p id="response4"></p>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+  
+    const firebaseConfig = {
+      apiKey: "AIzaSyCSY589uViTVK_pDHGf3TZ7SnidcwKlYJQ",
+      authDomain: "daa-el.firebaseapp.com",
+      databaseURL: "https://daa-el-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "daa-el",
+      storageBucket: "daa-el.appspot.com",
+      messagingSenderId: "708267542920",
+      appId: "1:708267542920:web:e7da2486bf780f56af123d",
+      measurementId: "G-S1BRSBMV4L"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+  
+    let userId;
+  
+    document.addEventListener('DOMContentLoaded', function () {
+      const submitButton = document.getElementById("submit");
+      const loaderSymbol = document.getElementById('loader');
+      const hiddenContent = document.getElementById('hidden-response');
+  
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          userId = user.uid;  // Retrieve the user ID from Firebase Authentication
+        } else {
+          console.log("User is not authenticated");
+          window.location.href = 'profile.html';  // Redirect to login if user is not authenticated
+        }
+      });
+  
+      submitButton.addEventListener("click", function () {
+        const fileInputEl = document.querySelector("input[type=file]");
+        const file = fileInputEl.files[0];
+  
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('user_id', userId);  // Pass the user ID to the backend
+  
+        loaderSymbol.style.display = 'block';
+        hiddenContent.style.display = 'none';
+  
+        fetch('/process_image', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => {
+          if (response.ok) {
+            const contentType = response.headers.get('Content-Type');
+            if (contentType && contentType.includes('application/json')) {
+              return response.json(); // Parse as JSON
+            } else {
+              return response.text(); // Handle other content types
+            }
+          } else {
+            throw new Error('Network response was not ok');
+          }
+        })
+        .then(data => {
+          if (typeof data === 'string') {
+            console.log('Received non-JSON response:', data);
+            // Handle non-JSON response (e.g., display as plain text)
+          } else {
+            // Process the JSON data
+            document.getElementById("response1").innerHTML = data.ingredients.join(", ");
+            document.getElementById("response2").innerHTML = data.safety_message;
+          }
+  
+          setTimeout(function () {
+            loaderSymbol.style.display = 'none';
+            hiddenContent.style.display = 'block';
+          }, 10000);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          loaderSymbol.style.display = 'none';
+          hiddenContent.style.display = 'block';
+        });
+      });
+    });
+
+    const API_KEY = "AIzaSyAR1LlrC0a_vui72x5rbkhQiv7mR2LI9Lk";
+    const genAI = new GoogleGenerativeAI(API_KEY);
+
+    async function run() {
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      let result = await model.generateContent([prompt, ...imageParts]);
+        let response = await result.response;
+        let text = await response.text();
+        console.log(text);
+        prompt = "Identify the type of food item and provide detailed instructions on how to store the food item to avoid health risks."
+        result = await model.generateContent([prompt, ...imageParts]);
+        response = await result.response;
+        text = await response.text();
+        formattedText = text.replace(/\n/g, "<br>");
+        document.getElementById("response3").innerHTML = formattedText;
+        console.log("Complete");
+
+        prompt = "Identify the food item or type of food item that the list of ingredients is for. Classify it as highly processed food, natural/not processed food and slightly processed food. Based on the food item, suggest 3 other healthy recipes similar to the food item. Reply in plain text"
+        result = await model.generateContent([prompt, ...imageParts]);
+        response = await result.response;
+        text = await response.text();
+        formattedText = text.replace(/\n/g, "<br>");
+        document.getElementById("response4").innerHTML = formattedText;
+        console.log("Complete");
+    }
+  </script>
+  
+</body>
+</html>

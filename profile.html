@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+    
+        /* Global Styles */
+      
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+      
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f0f8ff;
+          margin: 0;
+          padding: 20px;
+        }
+      
+        /* Header Styles */
+      
+        header {
+          width: 100%;
+          background-color: #f0f8ff;
+          padding: 10px;
+          text-align: center;
+          border-bottom: 1px solid #ccc;
+        }
+      
+       .header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+      
+       .header a {
+          color: black;
+          text-decoration: none;
+          margin-right: 20px;
+          transition: color 0.2s ease;
+        }
+      
+       .header a:hover {
+          color: #007bff;
+        }
+      
+       .header-right {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+      
+        /* Main Container Styles */
+      
+       .main-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 200vh;
+          padding: 20px;
+        }
+      
+       .container {
+          background-color: #ffffff;
+          padding: 40px;
+          border-radius: 10px;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+          width: 800px;
+          margin: 0 auto;
+          margin-top: 0 auto;
+        }
+      
+        /* Form Styles */
+      
+        h1 {
+          text-align: center;
+          color: #333;
+          margin-bottom: 20px;
+        }
+      
+        label {
+          font-weight: bold;
+          display: block;
+          margin-top: 10px;
+        }
+      
+        input[type="text"], input[type="number"], select {
+          width: calc(50% - 20px);
+          padding: 10px;
+          margin-top: 5px;
+          margin-right: 20px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          display: inline-block;
+        }
+      
+       .allergens-box {
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          padding: 10px;
+          margin-top: 10px;
+        }
+      
+       .allergens-box label {
+          display: inline-block;
+          width: 48%;
+          margin-bottom: 5px;
+        }
+      
+        /* Button Styles */
+      
+       .buttons {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 20px;
+        }
+      
+        button {
+          background-color: #007bff;
+          color: white;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          flex: 1;
+          margin: 0 10px;
+          transition: background-color 0.2s ease;
+        }
+      
+        button:hover {
+          background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header">
+           <a href="#default" class="logo"><img src="logo.png" alt="NutriSafe Logo" width="70" height="60"></a>
+           <div class="header-right">
+               <a  href="dashboard2.html">Home</a>
+               <a href="about.html">About</a>
+           </div>
+       </div>
+    </header>
+    <div class="container">
+        <h1 id="welcomeMessage">Welcome, User!</h1>
+        <label>Username</label>
+        <input type="text" id="UserInp">
+        <label>First Name</label>
+        <input type="text" id="FnameInp">
+        <label>Last Name</label>
+        <input type="text" id="LnameInp">
+        <label>Gender</label>
+        <select id="GenInp">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Others">Others</option>
+        </select>
+        <label>Height</label>
+        <input type="text" id="HeightInp">
+        <label>Weight</label>
+        <input type="text" id="WeightInp">
+        <label>Ingredients tend to avoid</label>
+        <input type="text" id="IngreInp">
+        <div class="allergens-box">
+            <legend type ="bold" >Dietery</legend>
+            <label><input type="checkbox" id="VeganInp"> Vegan</label>
+            <label><input type="checkbox" id="LowInp"> Low Fat Diet</label>
+            <label><input type="checkbox" id="KetoInp"> Ketogenic Diet</label>
+            <label><input type="checkbox" id="LowCarbInp"> Low Carb Diet</label>
+            <label><input type="checkbox" id="JainInp"> Jain Diet</label>
+            <label><input type="checkbox" id="GlutenInp"> Gluten Free Diet</label>
+            <label><input type="checkbox" id="DiaInp"> Diabetic Diet</label>
+            <label><input type="checkbox" id="PlantInp"> Plant based Diet</label>
+            <label><input type="checkbox" id="EggInp"> Eggitarien</label>
+        </div>
+       
+
+        <div class="allergens-box">
+            <legend type="bold">Allergy</legend>
+            <label><input type="checkbox" id="CelInp"> Celery</label>
+            <label><input type="checkbox" id="ChicInp"> Chicken Egg</label>
+            <label><input type="checkbox" id="DaiInp"> Dairy Products</label>
+            <label><input type="checkbox" id="FishInp"> Fish and Shellfish</label>
+            <label><input type="checkbox" id="FruInp"> Fruits and Vegetables</label>
+            <label><input type="checkbox" id="GluInp"> Gluten</label>
+            <label><input type="checkbox" id="LupInp"> Lupine</label>
+            <label><input type="checkbox" id="PeaInp"> Peanut</label>
+            <label><input type="checkbox" id="SesInp"> Sesame Seed</label>
+            <label><input type="checkbox" id="SoyInp"> Soybean</label>
+            <label><input type="checkbox" id="SpiInp"> Spice and Herbs</label>
+            <label><input type="checkbox" id="SulInp"> Sulfite</label>
+            <label><input type="checkbox" id="TreeInp"> Tree Nuts</label>
+        </div>
+        <div class="buttons">
+            <a href="dashboard2.html"><button id="AddBtn">Add</button></a>
+            
+        </div>
+    </div>
+
+
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-analytics.js";
+      import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+      import { getDatabase, ref,child, get, set, update, remove } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+    
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+    
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyCSY589uViTVK_pDHGf3TZ7SnidcwKlYJQ",
+  authDomain: "daa-el.firebaseapp.com",
+  databaseURL: "https://daa-el-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "daa-el",
+  storageBucket: "daa-el.appspot.com",
+  messagingSenderId: "708267542920",
+  appId: "1:708267542920:web:e7da2486bf780f56af123d",
+  measurementId: "G-S1BRSBMV4L"
+      };
+    
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+   
+        const auth = getAuth();
+        const db = getDatabase();
+
+        // Fetch the user's username
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const uid = user.uid;
+                const userRef = ref(db, 'users/' + uid);
+                get(userRef).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const username = snapshot.val().username;
+                        document.getElementById('welcomeMessage').innerText = `Welcome, ${username}!`;
+                        document.getElementById('UserInp').value = username;
+                    } else {
+                        console.log("No data available");
+                    }
+                }).catch((error) => {
+                    console.error(error);
+                });
+            } else {
+                console.log("User is signed out");
+                window.location.href = 'index.html'; // Redirect to login page if not authenticated
+            }
+        });
+
+        let UserInp = document.getElementById('UserInp');
+        let FnameInp = document.getElementById('FnameInp');
+        let LnameInp = document.getElementById('LnameInp');
+        let GenInp = document.getElementById('GenInp');
+        let HeightInp = document.getElementById('HeightInp');
+        let WeightInp = document.getElementById('WeightInp');
+        let IngreInp = document.getElementById('IngreInp');
+
+        let VeganInp = document.getElementById('VeganInp');
+        let LowInp = document.getElementById('LowInp');
+        let KetoInp = document.getElementById('KetoInp');
+        let LowCarbInp = document.getElementById('LowCarbInp');
+        let JainInp = document.getElementById('JainInp');
+        let GlutenInp = document.getElementById('GlutenInp');
+        let DiaInp = document.getElementById('DiaInp');
+        let PlantInp = document.getElementById('PlantInp');
+        let EggInp = document.getElementById('EggInp');
+        
+        let CelInp = document.getElementById('CelInp');
+        let ChicInp = document.getElementById('ChicInp');
+        let DaiInp = document.getElementById('DaiInp');
+        let FishInp = document.getElementById('FishInp');
+        let FruInp = document.getElementById('FruInp');
+        let GluInp = document.getElementById('GluInp');
+        let LupInp = document.getElementById('LupInp');
+        let PeaInp = document.getElementById('PeaInp');
+        let SesInp = document.getElementById('SesInp');
+        let SoyInp = document.getElementById('SoyInp');
+        let SpiInp = document.getElementById('SpiInp');
+        let SulInp = document.getElementById('SulInp');
+        let TreeInp = document.getElementById('TreeInp');
+
+        let AddBtn = document.getElementById('AddBtn');
+        
+
+        function AddData() {
+            set(ref(db, 'CustomerSet/' + UserInp.value), {
+                nameofcustomer: { firstname: FnameInp.value, lastname: LnameInp.value },
+                gender: GenInp.value,
+                height: HeightInp.value,
+                weight: WeightInp.value,
+                ingredientstendtoavoid: IngreInp.value,
+                diet: 
+                {
+                Vegan: VeganInp.checked,
+                LowFatDiet: LowInp.checked,
+                KetogenicDiet: KetoInp.checked,
+                LowCarbDiet: LowCarbInp.checked,
+                JainDiet: JainInp.checked,
+                GlutenFreeDiet: GlutenInp.checked,
+                DiabeticDiet: DiaInp.checked,
+                PlantbasedDiet: PlantInp.checked,
+                Eggitarien: EggInp.checked,
+                 },
+                allergy: {
+                    Celery: CelInp.checked,
+                    ChickenEgg: ChicInp.checked,
+                    DairyProducts: DaiInp.checked,
+                    FishAndShellfish: FishInp.checked,
+                    FruitsAndVegetables: FruInp.checked,
+                    Gluten: GluInp.checked,
+                    Lupine: LupInp.checked,
+                    Peanut: PeaInp.checked,
+                    Sesame: SesInp.checked,
+                    Soybean: SoyInp.checked,
+                    SpiceAndHerbs: SpiInp.checked,
+                    Sulfite: SulInp.checked,
+                    TreeNuts: TreeInp.checked
+                }
+            }).then(() => {
+                alert("Data added successfully");
+                window.location.href = 'index.html';
+            }).catch((error) => {
+                alert("Unsuccessful");
+                console.log(error);
+            });
+        }
+ 
+
+        AddBtn.addEventListener('click', AddData);
+       
+    </script>
+</body>
+</html>
+
